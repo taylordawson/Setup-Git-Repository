@@ -39,6 +39,8 @@ sub create_file_structure {
     $self->create_tests();
     
     $self->create_sub_structure();
+    
+    $self->create_gitignore();
 
 }
 
@@ -255,6 +257,22 @@ sub _build_base_mod_name {
     $mod_name =~ s/-/::/g;
 
     return $mod_name;
+
+}
+
+sub create_gitignore {
+    
+    my $self = shift;
+
+    my $oh = IO::File->new($self->name . '/.gitignore', '>') or die($!);
+    
+    print{$oh} "!Build/\n.last_cover_stats\n/META.yml\n/META.json\n/MYMETA.*\n*.o\n*.pm.tdy\n*.bs\n\n";
+    print{$oh} "# Devel::Cover\ncover_db/\n\n";
+    print{$oh} "# Devel::NYTProf\nnytprof.out\n\n";
+    print{$oh} "# Dizt::Zilla\n/.build/\n\n";
+    print{$oh} "# Module::Build\n_build/\nBuild\nBuild.bat\n\n";
+    print{$oh} "# Module::Install\ninc/\n\n";
+    print{$oh} "# ExtUtils::MakeMaker\n/blib/\n/_eumm/\n/*.gz\n/Makefile\n/Makefile.old\n/MANIFEST.bak\n/pm_to_blib\n/*.zip\n";
 
 }
 
