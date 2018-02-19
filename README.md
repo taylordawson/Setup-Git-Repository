@@ -5,7 +5,7 @@ new git repositories. All the user has to do is pass basic arguments to the
 script and it will handle the rest of the setup. The goal is to provide fast
 setup of git repositorys and consistent formatting amoung modules/scripts.
 
-##Author
+## Author
 Taylor Dawson - dawsoncapital1@gmail.com
 
 ## Dependencies
@@ -20,11 +20,23 @@ Required Perl Modules:
 - IO::File
 ```
 
+## Install
+```
+cd Setup-Git-Repository/
+perl Makefile.PL
+make
+make test
+make install
+```
+
 ## Example Usage
 ```
 setup_git_repository --script run_script --name Create-New-Repository --extension pl --desc 'setup of new perl program'
 ```
-
+**or**
+```
+setup_git_repository -s run_script -n Create-New-Repository -e pl -d 'setup of new perl program'
+```
 ## File Structure
 This script will auto create the following file structure for the above given
 parameters:
