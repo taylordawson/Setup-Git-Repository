@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use Setup::Git::Repository;
+
+Setup::Git::Repository->new_with_options->run();
