@@ -90,6 +90,22 @@ sub setup_git_repository {
     `git merge qa`;
 
     `git checkout dev`;
+    
+    my $url = $self->create_url();
+
+    `git remote add origin $url`;
+    
+}
+
+sub create_url {
+    
+    my $self = shift;
+    
+    my $name = `git config user.name`;
+        
+    chomp($name);
+
+    return "https://github.com/$name/" . $self->name . '.git';
 
 }
 
