@@ -4,6 +4,7 @@ use strict;
 use Moo;
 use MooX::Options;
 use Setup::Git::Repository::CreatePerlFileStructure;
+use Setup::Git::Repository::CreatePythonFileStructure;
 
 our $VERSION = '1.0.1';
 
@@ -11,9 +12,7 @@ option name => (
     is => 'ro',
     required => 1,
     format => 's',
-    short => 'n',    
-    isa => sub { die "$_[0] must be seperated by dashes!" unless ($_[0] =~ /-/)
-},
+    short => 'n',
     doc => 'name of the repository seperated by dashes (Ex. New-Repository)',
 );
 
@@ -47,13 +46,19 @@ sub run {
     
     my $self = shift;
         
+    $self->perl_format_check();
+
     my $make = ($self->extension eq 'pl')
         ? Setup::Git::Repository::CreatePerlFileStructure->new(
             name   => $self->name,
             script => $self->script,
             desc   => $self->desc,
         )
-        : exit(0);
+        : Setup::Git::Repository::CreatePythonFileStructure->new(
+            name   => $self->name,
+            script => $self->script,
+            desc   => $self->desc,
+        );
 
     $make->create_file_structure();
     
@@ -61,6 +66,19 @@ sub run {
 
     print $self->get_language_name() . ' git repository (' . $self->name . ') was created.' . "\n";
 
+}
+
+sub perl_format_check {
+
+    my $self = shift;
+
+    if (($self->extension eq 'pl') && ($self->name !~ /-/)) {
+            
+        print "Name must contain dashes!\n";
+        exit(0);    
+    
+    }
+    
 }
 
 sub setup_git_repository {
@@ -115,7 +133,7 @@ sub get_language_name {
 
     return 'Perl' if ($self->extension eq 'pl');
 
-    return 'Python' if ($self->extention eq 'py');
+    return 'Python' if ($self->extension eq 'py');
 
 }
 
