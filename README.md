@@ -55,6 +55,18 @@ Create-New-Repository/
 │   └── run_script
 └── t
 ```
+###Python:
+```
+createnewrepository/
+├── docs
+├── scripts
+│   └── run_script
+├── setup.py
+└── createnewrepository
+    ├── __init__.py
+    └── tests
+        └── __init__.py
+```
 
 ## Script Usage
 ```
@@ -69,6 +81,3 @@ USAGE: setup_git_repository [-h] [long options ...]
     --help                 show a long help message
     --man                  show the manual
 ```
-## Future Development
-Currently only perl file structure is supported. In the future the module will
-be able to support Python as well.
